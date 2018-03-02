@@ -1,12 +1,12 @@
 ### The string replacer.
 
 
-####Install:
+#### Install:
 Add to composer.json custom repository:
 
 
 
-####How to use:
+#### How to use:
 ```
 // 1. Create replacement rules: 
 $rules = [
