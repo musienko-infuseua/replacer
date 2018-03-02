@@ -1,29 +1,29 @@
-The string replacer.
+### The string replacer.
 
 
-Install:
+####Install:
 Add to composer.json custom repository:
 
 
 
-How to use:
-
-// Create replacement rules:
+####How to use:
+```
+// 1. Create replacement rules: 
 $rules = [
-  new ReplaceRule('o', 'i'),
-  new ReplaceRule('H', 'D'),
-  new ReplaceRule('1', '2'),
+    new ReplaceRule('o', 'i'),
+    new ReplaceRule('H', 'D'),
+    new ReplaceRule('1', '2'),
 ];
 
-// Create replacer instance
+// 2. Create replacer instance
 $replacer = new Replacer($rules);
 
-// Add another rule
+// 2a. Add another rule (Optional)
 $replacer->attach(new ReplaceRule('e', 'u'));
 
-// Get replaced text
+// 3. Get replaced text
 $replaced_str = $replacer->replace('Hello-1'); // Dulli-2
-
+```
 
 Please, see tests for more detail usage.
 
