@@ -25,11 +25,11 @@ class Replacer
     /**
      * Cascade replaces string characters according to rules
      *
-     * @param string $str
+     * @param string|array $str
      *
-     * @return string
+     * @return string|array
      */
-    public function replace(string $str) : string
+    public function replace($str)
     {
         $replaced = $str;
         foreach ($this->rules as $rule) {

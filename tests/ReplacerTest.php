@@ -22,6 +22,28 @@ class ReplacerTest extends TestCase
         $this->assertEquals('Delli2', $replaced);
     }
 
+    public function testShouldReplaceArrayOfStringsBasedOnRules()
+    {
+        $strs = ['Hello1', 'Hello1', 'Hello1'];
+
+        try {
+            $rules = [
+                new ReplaceRule('o', 'i'),
+                new ReplaceRule('H', 'D'),
+                new ReplaceRule('1', '2'),
+            ];
+
+            $replaced = (new Replacer($rules))->replace($strs);
+        } catch (NotValidRegexpException $e) {}
+
+
+        $this->assertInternalType('array', $replaced);
+        $this->assertCount(count($strs), $replaced);
+        foreach ($replaced as $item) {
+            $this->assertEquals('Delli2', $item);
+        }
+    }
+
     public function testShouldThrownNotValidRuleExceptionIfNotValidRuleProvided()
     {
         $rules = ['Some string instead of ReplaceRule class'];

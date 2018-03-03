@@ -23,6 +23,9 @@ $replacer->attach(new ReplaceRule('e', 'u'));
 
 // 3. Get replaced text
 $replaced_str = $replacer->replace('Hello-1'); // Dulli-2
+
+// 3a. If provide array, get replaced text array
+$replaced_strs = $replacer->replace(['Hello-1', 'Hello-1']); // ['Dulli-2', 'Dulli-2']
 ```
 
 Please, see tests for more detail usage.

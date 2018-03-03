@@ -1,0 +1,8 @@
+<phpunit bootstrap="src/autoload.php" convertWarningsToExceptions="false">
+    <testsuites>
+        <testsuite name="replacer">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
+
