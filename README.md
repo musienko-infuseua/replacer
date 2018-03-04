@@ -3,8 +3,17 @@
 
 #### Install:
 Add to composer.json custom repository:
-
-
+```
+  "require": {
+    "musienko-infuseua/replacer": "dev-master"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/musienko-infuseua/replacer"
+    }
+  ]
+```
 
 #### How to use:
 ```
