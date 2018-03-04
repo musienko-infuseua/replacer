@@ -1,11 +1,9 @@
 {
     "name": "musienko-infuseua/replacer",
+    "description": "Easy rules based string replacer",
     "require" : {
         "php": "7.*",
         "ext-pcre": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^7"
     },
     "autoload": {
         "psr-4": {

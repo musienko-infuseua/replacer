@@ -2,7 +2,7 @@
 
 
 #### Install:
-Add to composer.json custom repository:
+Add to composer.json :
 ```
   "require": {
     "musienko-infuseua/replacer": "dev-master"
