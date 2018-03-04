@@ -1,11 +1,15 @@
 {
     "name": "musienko-infuseua/replacer",
-    "autoload": {
-        "psr-0": {
-            "InSegment\\InSegment": "src"
-        }
+    "require" : {
+        "php": "7.*",
+        "ext-pcre": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^7"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
     }
 }

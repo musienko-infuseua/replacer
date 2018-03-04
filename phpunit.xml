@@ -1,4 +1,4 @@
-<phpunit bootstrap="src/autoload.php" convertWarningsToExceptions="false">
+<phpunit bootstrap="vendor/autoload.php" convertWarningsToExceptions="false" testdox="true">
     <testsuites>
         <testsuite name="replacer">
             <directory>tests</directory>
