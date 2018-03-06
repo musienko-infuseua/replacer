@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class ReplacerTest extends TestCase
 {
-    public function testShouldReplaceStringBasedOnRules()
+    public function testShouldReplaceStringBasedOnRulesInCaseSensitiveMode()
     {
         $str = 'Hello1';
         try {
@@ -18,6 +18,22 @@ class ReplacerTest extends TestCase
             $replaced = (new Replacer($rules))->replace($str);
         } catch (NotValidRegexpException $e) {}
 
+
+        $this->assertEquals('Delli2', $replaced);
+    }
+
+    public function testShouldReplaceStringBasedOnRulesInCaseInsensitiveMode()
+    {
+        $str = 'Hello1';
+        try {
+            $rules = [
+                new ReplaceRule('h', 'D', false),
+                new ReplaceRule('O', 'i', false),
+                new ReplaceRule('1', '2', false),
+            ];
+
+            $replaced = (new Replacer($rules))->replace($str);
+        } catch (NotValidRegexpException $e) {}
 
         $this->assertEquals('Delli2', $replaced);
     }

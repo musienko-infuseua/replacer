@@ -32,15 +32,21 @@ class ReplaceRule
      *
      * @param string $pattern
      * @param string $replacement
+     * @param bool $is_case_sensitive
+     * @param string $description
      *
      * @throws NotValidRegexpException
      */
-    public function __construct(string $pattern, string $replacement, string $description = '')
+    public function __construct(string $pattern, string $replacement, bool $is_case_sensitive = true, string $description = '')
     {
         $regexp = $this->delimiter.$pattern.$this->delimiter;
 
         if (false === preg_match($regexp, '')) {
             throw new NotValidRegexpException();
+        }
+
+        if (false === $is_case_sensitive) {
+            $regexp .= 'i';
         }
 
         $this->regexp = $regexp;

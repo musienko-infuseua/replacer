@@ -17,11 +17,18 @@ Add to composer.json :
 
 #### How to use:
 ```
-// 1. Create replacement rules: 
+// 1. Create replacement rules (case sensitive mode): 
 $rules = [
     new ReplaceRule('o', 'i'),
     new ReplaceRule('H', 'D'),
     new ReplaceRule('1', '2'),
+];
+
+// 1a. Or create replacement rules (case insensitive mode): 
+$rules = [
+    new ReplaceRule('o', 'i', false),
+    new ReplaceRule('H', 'D', false),
+    new ReplaceRule('1', '2', false),
 ];
 
 // 2. Create replacer instance

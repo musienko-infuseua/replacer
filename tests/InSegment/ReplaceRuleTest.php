@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class ReplaceRuleTest extends TestCase
 {
 
-    public function testShouldCreateRuleIfPatternIsValidRegexp()
+    public function testShouldCreateRuleInCaseSensitiveModeIfPatternIsValidRegexp()
     {
         $pattern = '^ Some . Valid Regexp Without Quotes $';
 
@@ -26,5 +26,12 @@ class ReplaceRuleTest extends TestCase
         $this->expectExceptionMessage('The string you provided as regexp_pattern is not a valid regular expression');
 
         new ReplaceRule($pattern, '');
+    }
+
+    public function testShouldCreateRuleInCaseInsensitiveMode()
+    {
+        $rule = new ReplaceRule('\w', '', false);
+
+        $this->assertInstanceOf(ReplaceRule::class, $rule);
     }
 }
