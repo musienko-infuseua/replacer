@@ -2,6 +2,8 @@
 
 namespace InSegment;
 
+use InSegment\Replacer\NotValidRegexpException;
+use InSegment\Replacer\ReplaceRule;
 use PHPUnit\Framework\TestCase;
 
 class ReplaceRuleTest extends TestCase

@@ -1,6 +1,10 @@
 <?php
 namespace InSegment;
 
+use InSegment\Replacer\NotValidRegexpException;
+use InSegment\Replacer\NotValidRuleException;
+use InSegment\Replacer\Replacer;
+use InSegment\Replacer\ReplaceRule;
 use PHPUnit\Framework\TestCase;
 
 class ReplacerTest extends TestCase

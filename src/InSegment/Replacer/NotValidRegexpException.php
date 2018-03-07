@@ -1,6 +1,6 @@
 <?php
 
-namespace InSegment;
+namespace InSegment\Replacer;
 
 /**
  * Class NotValidRegexpException

@@ -1,7 +1,6 @@
 <?php
 
-namespace InSegment;
-
+namespace InSegment\Replacer;
 
 class ReplacerFacade
 {

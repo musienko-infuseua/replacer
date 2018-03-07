@@ -8,6 +8,8 @@
 
 namespace InSegment;
 
+use InSegment\Replacer\Replacer;
+use InSegment\Replacer\ReplacerFacade;
 use PHPUnit\Framework\TestCase;
 
 class ReplacerFacadeTest extends TestCase
