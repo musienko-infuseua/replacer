@@ -42,6 +42,9 @@ $replaced_str = $replacer->replace('Hello-1'); // Dulli-2
 
 // 3a. If provide array, get replaced text array
 $replaced_strs = $replacer->replace(['Hello-1', 'Hello-1']); // ['Dulli-2', 'Dulli-2']
+
+//3b. You get also get applied rules during the last execution
+$applied_rules = $replacer->appliedRules(); // returns $rules, because all of them was appplied in this example  
 ```
 
 Please, see tests for more detail usage.
