@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class ReplaceRuleTest extends TestCase
 {
-
     public function testShouldCreateRuleInCaseSensitiveModeIfPatternIsValidRegexp()
     {
         $pattern = '^ Some . Valid Regexp Without Quotes $';
@@ -35,5 +34,12 @@ class ReplaceRuleTest extends TestCase
         $rule = new ReplaceRule('\w', '', false);
 
         $this->assertInstanceOf(ReplaceRule::class, $rule);
+    }
+
+    public function testShouldRetrieveRuleDescription()
+    {
+        $rule = new ReplaceRule('\w', '', false, $desc = 'my rule');
+
+        $this->assertEquals($desc, $rule->getDescription());
     }
 }

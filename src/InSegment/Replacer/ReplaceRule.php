@@ -73,4 +73,14 @@ class ReplaceRule
     {
         return $this->replacement;
     }
+
+    /**
+     * Returns description of rule
+     *
+     * @return string
+     */
+    public function getDescription() : string
+    {
+        return $this->description;
+    }
 }

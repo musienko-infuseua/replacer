@@ -13,6 +13,13 @@ class Replacer
     protected $rules = [];
 
     /**
+     * Rules were applied
+     *
+     * @var array
+     */
+    protected $applied_rules = [];
+
+    /**
      * Replacer constructor.
      *
      * @param ReplaceRule[]
@@ -25,18 +32,44 @@ class Replacer
     /**
      * Cascade replaces string characters according to rules
      *
+     * We can't use an array as parameter, because we need to check if Rule did apply.
+     *
      * @param string|array $str
      *
-     * @return string|array
+     * @return string|array If null was provided as $str - empty string will return.
      */
     public function replace($str)
     {
-        $replaced = $str;
-        foreach ($this->rules as $rule) {
-            $replaced = preg_replace($rule->getRegexp(), $rule->getReplacement(), $replaced);
+        // Clear applied rules because method might be executed before
+        $this->applied_rules = [];
+
+        if (!is_array($str)) {
+            $subjects[] = $str ?? '';
+        } else {
+            $subjects = $str;
         }
 
-        return $replaced;
+        $replaced_batch = [];
+        foreach ($subjects as $subject) {
+            foreach ($this->rules as $rule) {
+                $replaced = preg_replace($rule->getRegexp(), $rule->getReplacement(), $subject);
+                if ($replaced !== $subject && null !== $replaced) {
+                    $this->applied_rules[] = $rule;
+                }
+                $subject = $replaced ?? $subject;// next iteration apply replaced as subject for cascade reason
+            }
+            $replaced_batch[] = $replaced;
+        }
+
+        if (0 === count($replaced_batch)) {
+            $result = '';
+        } elseif (1 === count($replaced_batch)) {
+            $result = array_pop($replaced_batch);
+        } else {
+            $result =  $replaced_batch;
+        }
+
+        return $result;
     }
 
     /**
@@ -56,6 +89,16 @@ class Replacer
         $this->validateAndAttachRules($rules_to_attach, $is_append);
 
         return $this;
+    }
+
+    /**
+     * Rules were applied
+     *
+     * @return ReplaceRule[]
+     */
+    public function appliedRules() : array
+    {
+        return $this->applied_rules;
     }
 
     /**

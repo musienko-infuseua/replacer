@@ -64,6 +64,30 @@ class ReplacerTest extends TestCase
         }
     }
 
+    public function testShouldReturnAppliedRulesNamesForEachReplace()
+    {
+        $str = 'Hello1';
+        try {
+            $rules = [
+                new ReplaceRule('o', 'i'),
+                new ReplaceRule('H', 'D'),
+                new ReplaceRule('1', '2'),
+            ];
+
+            $replacer = new Replacer($rules);
+            $replaced = $replacer->replace($str);
+            $applied_rules = $replacer->appliedRules();
+            $replaced = $replacer->replace($str);
+            $applied_rules2 = $replacer->appliedRules();
+
+        } catch (NotValidRegexpException $e) {}
+
+        $this->assertEquals('Delli2', $replaced);
+        $this->assertInternalType('array', $applied_rules);
+        $this->assertEquals($rules, $applied_rules);
+        $this->assertEquals($rules, $applied_rules2);
+    }
+
     public function testShouldThrownNotValidRuleExceptionIfNotValidRuleProvided()
     {
         $rules = ['Some string instead of ReplaceRule class'];
@@ -93,7 +117,7 @@ class ReplacerTest extends TestCase
         $this->assertEquals('Delli2', $replaced);
     }
 
-    public function testshouldAttachArrayOfRulesToExistedInstance()
+    public function testShouldAttachArrayOfRulesToExistedInstance()
     {
         $str = 'Hello1';
         try {
