@@ -42,6 +42,20 @@ class ReplacerTest extends TestCase
         $this->assertEquals('Delli2', $replaced);
     }
 
+    public function testShouldReplaceUtf8String()
+    {
+        $str = 'Àfggh';
+        try {
+            $rules = [
+                new ReplaceRule('À', 'A', false),
+            ];
+
+            $replaced = (new Replacer($rules))->replace($str);
+        } catch (NotValidRegexpException $e) {}
+
+        $this->assertEquals('Afggh', $replaced);
+    }
+
     public function testShouldReplaceArrayOfStringsBasedOnRules()
     {
         $strs = ['Hello1', 'Hello1', 'Hello1'];

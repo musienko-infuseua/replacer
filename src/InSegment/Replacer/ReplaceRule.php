@@ -41,12 +41,13 @@ class ReplaceRule
     {
         $regexp = $this->delimiter.$pattern.$this->delimiter;
 
-        if (false === preg_match($regexp, '')) {
-            throw new NotValidRegexpException();
-        }
-
+        $regexp .= 'u';
         if (false === $is_case_sensitive) {
             $regexp .= 'i';
+        }
+
+        if (false === preg_match($regexp, '')) {
+            throw new NotValidRegexpException();
         }
 
         $this->regexp = $regexp;
