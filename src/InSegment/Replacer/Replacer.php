@@ -102,6 +102,16 @@ class Replacer
     }
 
     /**
+     * Retrieve attached rules
+     *
+     * @return ReplaceRule[]
+     */
+    public function getAttachedRules()
+    {
+        return $this->rules;
+    }
+
+    /**
      * Validate rules to ReplaceRule class, and attached it to existing ones
      *
      * @param array|ReplaceRule $rules

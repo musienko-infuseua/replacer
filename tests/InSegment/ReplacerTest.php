@@ -153,4 +153,20 @@ class ReplacerTest extends TestCase
 
         $this->assertEquals('Delli2', $replaced);
     }
+
+    public function testShouldReturnAttachedRules()
+    {
+        try {
+            $rules = [
+                new ReplaceRule('h', 'D', false),
+                new ReplaceRule('O', 'i', false),
+                new ReplaceRule('1', '2', false),
+            ];
+
+            $replacer = new Replacer($rules);
+
+        } catch (NotValidRegexpException $e) {}
+
+        $this->assertArraySubset($replacer->getAttachedRules(), $rules);
+    }
 }
