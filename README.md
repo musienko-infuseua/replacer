@@ -47,6 +47,19 @@ $replaced_strs = $replacer->replace(['Hello-1', 'Hello-1']); // ['Dulli-2', 'Dul
 $applied_rules = $replacer->appliedRules(); // returns $rules, because all of them was appplied in this example  
 ```
 
+Also you can get properly escaped regexp for MySQL to use in REGEXP* functions.
+```
+$rule1 = new ReplaceRule('\w', '');
+$rule2 = new ReplaceRule('\\\x{3d}', '');
+
+$sql_regexp1 = $rule1->getSqlRegexp(); // return '\\\w'
+$sql_regexp2 = $rule2->getSqlRegexp(); // return '\\\\x{3d}'
+
+Then you can use it in SQL queries:
+$sql1 = "SELECT 'Hello World' REGEXP ('" . $sql_regexp1 . "') "; // return 1
+$sql2 = "SELECT 'Hello=World' REGEXP ('" . $sql_regexp2 . "') "; // return 1
+
+```
 Please, see tests for more detail usage.
 
 

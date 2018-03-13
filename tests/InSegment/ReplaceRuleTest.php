@@ -42,4 +42,22 @@ class ReplaceRuleTest extends TestCase
 
         $this->assertEquals($desc, $rule->getDescription());
     }
+
+    public function testShouldRetrieveRegexp()
+    {
+        $rule = new ReplaceRule($pattern = '\w', '');
+
+        $this->assertEquals('/'.$pattern.'/u', $rule->getRegexp());
+    }
+
+    public function testShouldRetrieveTriipleSlashedRegexp()
+    {
+        $rule1 = new ReplaceRule('\w', '');
+        $rule2 = new ReplaceRule('\\\x{2a}', '');
+
+        // expected = \\\w
+        $this->assertEquals('\\\\\w', $rule1->getSqlRegexp());
+        // expected = \\\\x{2a} , because MySQL needs for unicode char double slash
+        $this->assertEquals('\\\\\\\x{2a}', $rule2->getSqlRegexp());
+    }
 }

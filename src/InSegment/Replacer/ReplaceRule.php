@@ -8,7 +8,7 @@ class ReplaceRule
     /**
      * @var string
      */
-    protected $regexp;
+    protected $pattern;
 
     /**
      * @var string
@@ -28,6 +28,13 @@ class ReplaceRule
     protected $delimiter = '/';
 
     /**
+     * Regexp modificators
+     *
+     * @var string
+     */
+    protected $modificators = 'u';
+
+    /**
      * ReplaceRule constructor.
      *
      * @param string $pattern
@@ -39,30 +46,37 @@ class ReplaceRule
      */
     public function __construct(string $pattern, string $replacement, bool $is_case_sensitive = true, string $description = '')
     {
-        $regexp = $this->delimiter.$pattern.$this->delimiter;
-
-        $regexp .= 'u';
         if (false === $is_case_sensitive) {
-            $regexp .= 'i';
+            $this->modificators .= 'i';
         }
 
-        if (false === preg_match($regexp, '')) {
+        if (false === preg_match($this->delimiter.$pattern.$this->delimiter, '')) {
             throw new NotValidRegexpException();
         }
 
-        $this->regexp = $regexp;
+        $this->pattern = $pattern;
         $this->replacement = $replacement;
         $this->description = $description;
     }
 
     /**
-     * Returns regexp pattern
+     * Returns regexp pattern to use in PHP side (spec. characters slashes as is)
      *
      * @return string
      */
     public function getRegexp() : string
     {
-        return $this->regexp;
+        return $this->delimiter.$this->pattern.$this->delimiter.$this->modificators;
+    }
+
+    /**
+     * Adds 2 extra slashed to spec. character to use in SQL queries with REGEXP* functions
+     *
+     * @return string
+     */
+    public function getSqlRegexp() : string
+    {
+        return preg_replace('/(\\\[A-Za-z]){1}/', '\\\\\\\\${1}', $this->pattern);
     }
 
     /**
