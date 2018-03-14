@@ -50,14 +50,28 @@ class ReplaceRuleTest extends TestCase
         $this->assertEquals('/'.$pattern.'/u', $rule->getRegexp());
     }
 
-    public function testShouldRetrieveTriipleSlashedRegexp()
+    public function testShouldRetrieveSqlSlashedRegexp()
     {
-        $rule1 = new ReplaceRule('\w', '');
-        $rule2 = new ReplaceRule('\\\x{2a}', '');
+        $rule1 = new ReplaceRule('\w', '', false);
+        $rule2 = new ReplaceRule('\\\x{2a}', '', false);
+        $rule3 = new ReplaceRule('\w\.', '', false);
 
         // expected = \\\w
         $this->assertEquals('\\\\\w', $rule1->getSqlRegexp());
         // expected = \\\\x{2a} , because MySQL needs for unicode char double slash
         $this->assertEquals('\\\\\\\x{2a}', $rule2->getSqlRegexp());
+        $this->assertEquals('\\\\\w\\\\\.', $rule3->getSqlRegexp());
+    }
+
+    public function testShouldGetRegexpInCaseSensivityMode()
+    {
+        $rule1 = new ReplaceRule('\w', '', true);
+        $rule2 = new ReplaceRule('\d', '', false);
+
+        $this->assertEquals('/\w/u', $rule1->getRegexp());
+        $this->assertEquals('(?-i)\\\\\w', $rule1->getSqlRegexp());
+
+        $this->assertEquals('/\d/ui', $rule2->getRegexp());
+        $this->assertEquals('\\\\\d', $rule2->getSqlRegexp());
     }
 }

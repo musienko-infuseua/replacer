@@ -28,11 +28,9 @@ class ReplaceRule
     protected $delimiter = '/';
 
     /**
-     * Regexp modificators
-     *
-     * @var string
+     * @var
      */
-    protected $modificators = 'u';
+    protected $is_case_sensitive;
 
     /**
      * ReplaceRule constructor.
@@ -46,16 +44,13 @@ class ReplaceRule
      */
     public function __construct(string $pattern, string $replacement, bool $is_case_sensitive = true, string $description = '')
     {
-        if (false === $is_case_sensitive) {
-            $this->modificators .= 'i';
-        }
-
         if (false === preg_match($this->delimiter.$pattern.$this->delimiter, '')) {
             throw new NotValidRegexpException();
         }
 
         $this->pattern = $pattern;
         $this->replacement = $replacement;
+        $this->is_case_sensitive = $is_case_sensitive;
         $this->description = $description;
     }
 
@@ -66,7 +61,11 @@ class ReplaceRule
      */
     public function getRegexp() : string
     {
-        return $this->delimiter.$this->pattern.$this->delimiter.$this->modificators;
+        $modificators = 'u';
+        if (false === $this->is_case_sensitive) {
+            $modificators .= 'i';
+        }
+        return $this->delimiter.$this->pattern.$this->delimiter.$modificators;
     }
 
     /**
@@ -76,7 +75,12 @@ class ReplaceRule
      */
     public function getSqlRegexp() : string
     {
-        return preg_replace('/(\\\[A-Za-z]){1}/', '\\\\\\\\${1}', $this->pattern);
+        $modificators = '';
+        if (true === $this->is_case_sensitive) {
+            $modificators .= '(?-i)';
+        }
+
+        return $modificators.preg_replace('/(\\\[A-Za-z\.]){1}/', '\\\\\\\\${1}', $this->pattern);
     }
 
     /**
