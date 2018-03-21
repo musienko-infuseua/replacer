@@ -43,7 +43,12 @@ $replaced_str = $replacer->replace('Hello-1'); // Dulli-2
 // 3a. If provide array, get replaced text array
 $replaced_strs = $replacer->replace(['Hello-1', 'Hello-1']); // ['Dulli-2', 'Dulli-2']
 
-//3b. You get also get applied rules during the last execution
+// 3b. If provide ISO-8859-1 OR CP1252 encoding, the broken chars will recover
+$str_iso = mb_convert_encoding('L’Oréal', 'ISO-8859-1); // L?Or�al
+$replacer->attach(new ReplaceRule('é', 'e'));
+$replaced_str = $replacer->replace($str_iso); // L?oreal , because � will recover to é
+
+//4. You get also get applied rules during the last execution
 $applied_rules = $replacer->appliedRules(); // returns $rules, because all of them was appplied in this example  
 ```
 

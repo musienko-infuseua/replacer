@@ -47,7 +47,7 @@ class ReplaceRuleTest extends TestCase
     {
         $rule = new ReplaceRule($pattern = '\w', '');
 
-        $this->assertEquals('/'.$pattern.'/u', $rule->getRegexp());
+        $this->assertEquals('/' . $pattern . '/', $rule->getRegexp());
     }
 
     public function testShouldRetrieveSqlSlashedRegexp()
@@ -68,10 +68,10 @@ class ReplaceRuleTest extends TestCase
         $rule1 = new ReplaceRule('\w', '', true);
         $rule2 = new ReplaceRule('\d', '', false);
 
-        $this->assertEquals('/\w/u', $rule1->getRegexp());
+        $this->assertEquals('/\w/', $rule1->getRegexp());
         $this->assertEquals('(?-i)\\\\\w', $rule1->getSqlRegexp());
 
-        $this->assertEquals('/\d/ui', $rule2->getRegexp());
+        $this->assertEquals('/\d/i', $rule2->getRegexp());
         $this->assertEquals('\\\\\d', $rule2->getSqlRegexp());
     }
 }

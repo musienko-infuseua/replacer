@@ -3,7 +3,8 @@
     "description": "Easy rules based string replacer",
     "require" : {
         "php": "7.*",
-        "ext-pcre": "*"
+        "ext-pcre": "*",
+        "neitanod/forceutf8": "~2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7"

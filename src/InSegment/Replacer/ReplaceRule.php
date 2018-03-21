@@ -61,7 +61,7 @@ class ReplaceRule
      */
     public function getRegexp() : string
     {
-        $modificators = 'u';
+        $modificators = '';
         if (false === $this->is_case_sensitive) {
             $modificators .= 'i';
         }

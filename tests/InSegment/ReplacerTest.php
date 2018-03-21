@@ -42,6 +42,32 @@ class ReplacerTest extends TestCase
         $this->assertEquals('Delli2', $replaced);
     }
 
+    public function testSouldConvertISO8859AndCP1252CharsToUtf8BeforeReplace()
+    {
+        $str = 'L’Oréal';
+
+        $strs = [];
+        foreach (['ISO-8859-1', 'CP1252', 'UTF-8'] as $encoding) {
+            $strs[] = mb_convert_encoding($str, $encoding);
+        }
+
+        try {
+            $rules = [
+                new ReplaceRule('é', 'e', false),
+            ];
+
+            $replaced = (new Replacer($rules))->replace($strs);
+        } catch (NotValidRegexpException $e) {
+        }
+
+        $this->assertNotEmpty($replaced);
+        foreach ($replaced as $item) {
+            $this->assertTrue(in_array($item, $expected = ['L?Oreal', 'L’Oreal'], true),
+                "$item is not in " . implode(',', $expected));
+        }
+    }
+
+
     public function testShouldReplaceUtf8String()
     {
         $str = 'Àfggh';

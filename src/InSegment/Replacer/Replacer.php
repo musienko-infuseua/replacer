@@ -2,6 +2,7 @@
 
 namespace InSegment\Replacer;
 
+use ForceUTF8\Encoding;
 
 class Replacer
 {
@@ -51,6 +52,7 @@ class Replacer
 
         $replaced_batch = [];
         foreach ($subjects as $subject) {
+            $subject = Encoding::toUTF8($subject);
             foreach ($this->rules as $rule) {
                 $replaced = preg_replace($rule->getRegexp(), $rule->getReplacement(), $subject);
                 if ($replaced !== $subject && null !== $replaced) {
