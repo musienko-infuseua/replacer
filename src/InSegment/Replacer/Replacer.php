@@ -53,6 +53,7 @@ class Replacer
         $replaced_batch = [];
         foreach ($subjects as $subject) {
             $subject = Encoding::toUTF8($subject);
+            $replaced = '';
             foreach ($this->rules as $rule) {
                 $replaced = preg_replace($rule->getRegexp(), $rule->getReplacement(), $subject);
                 if ($replaced !== $subject && null !== $replaced) {
@@ -108,7 +109,7 @@ class Replacer
      *
      * @return ReplaceRule[]
      */
-    public function getAttachedRules()
+    public function getAttachedRules() : array
     {
         return $this->rules;
     }
