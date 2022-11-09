@@ -2,7 +2,7 @@
     "name": "musienko-infuseua/replacer",
     "description": "Easy rules based string replacer",
     "require" : {
-        "php": "7.*",
+        "php": ">=7",
         "ext-pcre": "*",
         "neitanod/forceutf8": "~2.0"
     },
